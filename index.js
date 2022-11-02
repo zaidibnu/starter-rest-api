@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const db = require('cyclic-dynamodb')
 const APIMANGROVE = require('./repo/api')
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }))
 // #############################################################################
 
 // Create or Update an item
+app.use(cors())
 app.post('/:col/:key', async (req, res) => {
   console.log(req.body)
 
