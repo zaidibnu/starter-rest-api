@@ -78,7 +78,7 @@ app.use('*',cors({
   "preflightContinue": false,
   "optionsSuccessStatus": 204
 }), (req, res) => {
-  res.json(APIMANGROVE())
+  res.json(APIMANGROVE(req))
 })
 
 // Start the server
