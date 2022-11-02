@@ -61,9 +61,13 @@ app.get('/:col', async (req, res) => {
   console.log(JSON.stringify(items, null, 2))
   res.json(items).end()
 })
+//
+app.get('/status',cors,async (req,res)=>{
+  res.json(APIMANGROVE())
+})
 
 // Catch all handler for all other request.
-app.use('*', (req, res) => {
+app.get('*', (req, res) => {
   res.json(APIMANGROVE())
 })
 
