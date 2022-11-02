@@ -1,7 +1,7 @@
-module.exports = function  APIMANGROVE (data){
+module.exports = function  APIMANGROVE (){
     return {
         version :1.0,
         status:'Development',
-        request:JSON.stringify(data)
+        request:null
     }
 }
