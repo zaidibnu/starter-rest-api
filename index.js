@@ -62,7 +62,7 @@ app.get('/:col', async (req, res) => {
   res.json(items).end()
 })
 //
-app.get('/status/',cors,async (req,res)=>{
+app.get('/status/',cors(),async (req,res)=>{
   res.json(APIMANGROVE())
 })
 
