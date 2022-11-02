@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const db = require('cyclic-dynamodb')
-
+const APIMANGROVE = require('./repo/api')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -62,7 +62,7 @@ app.get('/:col', async (req, res) => {
 
 // Catch all handler for all other request.
 app.use('*', (req, res) => {
-  res.json({ msg: 'no route handler found' }).end()
+  res.json(APIMANGROVE())
 })
 
 // Start the server
