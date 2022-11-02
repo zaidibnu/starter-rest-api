@@ -48,9 +48,15 @@ app.get('/:col/:key', async (req, res) => {
   const col = req.params.col
   const key = req.params.key
   console.log(`from collection: ${col} get key: ${key} with params ${JSON.stringify(req.params)}`)
-  const item = await db.collection(col).get(key)
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
+  //const item = await db.collection(col).get(key)
+  //console.log(JSON.stringify(item, null, 2))
+  //res.json(item).end()
+  switch(col){
+    case 'existing':
+      const manges = require('./repo/exsiting')
+      res.json(mangroveExisting('upt'))
+    break;
+  }
 })
 
 // Get a full listing
@@ -62,14 +68,6 @@ app.get('/:col', async (req, res) => {
   res.json(items).end()
 })
 //
-app.get('/status/',cors({
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
-}),async (req,res)=>{
-  res.json(APIMANGROVE())
-})
 
 // Catch all handler for all other request.
 app.use('*',cors({
