@@ -62,7 +62,12 @@ app.get('/:col', async (req, res) => {
   res.json(items).end()
 })
 //
-app.get('/status/',cors(),async (req,res)=>{
+app.get('/status/',cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}),async (req,res)=>{
   res.json(APIMANGROVE())
 })
 
