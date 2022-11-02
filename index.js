@@ -72,7 +72,12 @@ app.get('/status/',cors({
 })
 
 // Catch all handler for all other request.
-app.get('*', (req, res) => {
+app.use('*',cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}), (req, res) => {
   res.json(APIMANGROVE())
 })
 
