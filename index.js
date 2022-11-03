@@ -19,6 +19,14 @@ app.use(express.urlencoded({ extended: true }))
 // }
 // app.use(express.static('public', options))
 // #############################################################################
+app.get('/status/',cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}),async (req,res)=>{
+  res.json(APIMANGROVE())
+})
 
 // Create or Update an item
 app.use(cors())
@@ -62,14 +70,6 @@ app.get('/:col', async (req, res) => {
   res.json(items).end()
 })
 //
-app.get('/status/',cors({
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
-}),async (req,res)=>{
-  res.json(APIMANGROVE())
-})
 
 // Catch all handler for all other request.
 app.use('*',cors({
