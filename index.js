@@ -3,6 +3,7 @@ const cors = require('cors')
 const app = express()
 const db = require('cyclic-dynamodb')
 const APIMANG = require('./repo/api')
+const APIWILAYAH = require('./repo/wilayah')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -68,6 +69,10 @@ app.get('/:col/:key', async (req, res) => {
   switch(col){
     case 'existing':
       result.data = APIMANG.HITUNGLUAS(col)
+      res.json(result)
+    break;
+    case 'wilayah':
+      result.data = APIWILAYAH.GET(key)
       res.json(result)
     break;
   }
