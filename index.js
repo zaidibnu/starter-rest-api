@@ -60,10 +60,15 @@ app.get('/:col/:key', async (req, res) => {
   //const item = await db.collection(col).get(key)
   //console.log(JSON.stringify(item, null, 2))
   //res.json(item).end()
+  const result = {
+    request: col,
+    key: key,
+    data: null
+  }
   switch(col){
     case 'existing':
       const manges = require('./repo/exsiting')
-      res.json({data:null,status:500,date:new Date().getUTCDate()})
+      res.json(result)
     break;
   }
 })
