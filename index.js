@@ -68,6 +68,7 @@ app.get('/:col/:key', async (req, res) => {
   switch(col){
     case 'existing':
       const manges = require('./repo/exsiting')
+      result.data = mangroveExsisting('BATANGARI')
       res.json(result)
     break;
   }
