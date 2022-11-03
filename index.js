@@ -19,14 +19,7 @@ app.use(express.urlencoded({ extended: true }))
 // }
 // app.use(express.static('public', options))
 // #############################################################################
-app.get('/status/',cors({
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
-}),async (req,res)=>{
-  res.json(APIMANGROVE())
-})
+
 
 // Create or Update an item
 app.use(cors())
@@ -40,7 +33,15 @@ app.post('/:col/:key', async (req, res) => {
   console.log(JSON.stringify(item, null, 2))
   res.json(item).end()
 })
-
+//
+app.get('/status/',cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}),async (req,res)=>{
+  res.json(APIMANGROVE())
+})
 // Delete an item
 app.delete('/:col/:key', async (req, res) => {
   const col = req.params.col
@@ -69,7 +70,7 @@ app.get('/:col/:key', async (req, res) => {
 
 // Get a full listing
 app.get('/:col', async (req, res) => {
-  //const col = req.params.col
+  const col = req.params.col
   //console.log(`list collection: ${col} with params: ${JSON.stringify(req.params)}`)
   //const items = await db.collection(col).list()
   //console.log(JSON.stringify(items, null, 2))
