@@ -3,6 +3,7 @@ const cors = require('cors')
 const app = express()
 const db = require('cyclic-dynamodb')
 const APIMANGROVE = require('./repo/api')
+const manges = require('./repo/exsiting')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -67,8 +68,7 @@ app.get('/:col/:key', async (req, res) => {
   }
   switch(col){
     case 'existing':
-      const manges = require('./repo/exsiting')
-      result.data = mangroveExsisting('BATANGHARI')
+      result.data = mangroveExisting(col)
       res.json(result)
     break;
   }
