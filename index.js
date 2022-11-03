@@ -69,7 +69,7 @@ app.get('/:col', async (req, res) => {
   switch(col){
     case 'existing':
       const manges = require('./repo/exsiting')
-      res.json(mangroveExisting('upt')).end()
+      res.json({status:200, data:null}).end()
     break;
   }
 })
