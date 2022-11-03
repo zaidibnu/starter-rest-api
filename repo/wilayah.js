@@ -3,6 +3,6 @@ function get(id){
     return data;
 }
 function download(id){
-    return './wilayah/'+id+'.json'
+    return './existing/'+id+'.json'
 }
 module.exports = {get, download}
