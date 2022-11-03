@@ -76,8 +76,8 @@ app.get('/:col/:key', async (req, res) => {
       res.download(result)
     break;
     case 'existing':
-      result.data = APIWILAYAH.download(key)
-      res.download(result)
+     // result.data = APIWILAYAH.download(key)
+      res.download(APIWILAYAH.download(key))
     break;
   }
 })
