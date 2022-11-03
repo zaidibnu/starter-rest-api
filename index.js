@@ -67,7 +67,7 @@ app.get('/:col/:key', async (req, res) => {
     data: null
   }
   switch(col){
-    case 'existing':
+    case 'calculate':
       result.data = APIMANG.HITUNGLUAS(col)
       res.json(result)
     break;
