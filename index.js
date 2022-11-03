@@ -4,7 +4,6 @@ const app = express()
 const db = require('cyclic-dynamodb')
 const APIMANG = require('./repo/api')
 app.use(express.json())
-app.use(MANGROVEEXISTING.HITUNGLUAS())
 app.use(express.urlencoded({ extended: true }))
 
 // #############################################################################
