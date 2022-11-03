@@ -63,7 +63,7 @@ app.get('/:col/:key', async (req, res) => {
   switch(col){
     case 'existing':
       const manges = require('./repo/exsiting')
-      res.json(mangroveExisting('upt'))
+      res.json({data:null,status:500,date:new Date().getUTCDate()})
     break;
   }
 })
