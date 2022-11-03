@@ -3,7 +3,7 @@ const cors = require('cors')
 const app = express()
 const db = require('cyclic-dynamodb')
 const APIMANGROVE = require('./repo/api')
-const manges = require('./repo/exsiting')
+const manges = require('./repo/existing')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -83,7 +83,7 @@ app.get('/:col', async (req, res) => {
   //res.json(items).end()
   switch(col){
     case 'existing':
-      const manges = require('./repo/exsiting')
+      const manges = require('./repo/existing')
       res.json({status:200, data:null}).end()
     break;
   }
