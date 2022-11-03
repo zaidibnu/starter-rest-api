@@ -68,7 +68,7 @@ app.get('/:col/:key', async (req, res) => {
   }
   switch(col){
     case 'existing':
-      result.data = mangroveExisting(col)
+      result.data = HITUNGLUAS(col)
       res.json(result)
     break;
   }
