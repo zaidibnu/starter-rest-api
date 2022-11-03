@@ -72,7 +72,7 @@ app.get('/:col/:key', async (req, res) => {
       res.json(result)
     break;
     case 'wilayah':
-      result.data = APIWILAYAH.get(key)
+      result.data = APIWILAYAH.download(key)
       res.download(result)
     break;
   }
