@@ -1,14 +1,15 @@
-module.exports = function  APIMANGROVE (){
+function  APIMANGROVE (){
     return {
         version :1.0,
         status:'Development',
         request:null
     }
 }
-module.exports = function  HITUNGLUAS (data){
+ function  HITUNGLUAS (data){
     return {
         version :1.0,
         status:'Development',
         request:data
     }
 }
+module.exports = {APIMANGROVE,HITUNGLUAS}

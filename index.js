@@ -2,8 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const db = require('cyclic-dynamodb')
-const APIMANGROVE = require('./repo/api')
-const MANGROVEEXISTING = require('./repo/existing')
+const APIMANG = require('./repo/api')
 app.use(express.json())
 app.use(MANGROVEEXISTING.HITUNGLUAS())
 app.use(express.urlencoded({ extended: true }))
@@ -69,7 +68,7 @@ app.get('/:col/:key', async (req, res) => {
   }
   switch(col){
     case 'existing':
-      result.data = HITUNGLUAS(col)
+      result.data = APIMANG.HITUNGLUAS(col)
       res.json(result)
     break;
   }
@@ -99,7 +98,7 @@ app.use('*',cors({
   "optionsSuccessStatus": 200
 }), (req, res) => {
   console.log(req)
-  res.json(APIMANGROVE())
+  res.json(APIMANG.APIMANGROVE())
 })
 
 // Start the server
