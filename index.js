@@ -3,8 +3,9 @@ const cors = require('cors')
 const app = express()
 const db = require('cyclic-dynamodb')
 const APIMANGROVE = require('./repo/api')
-const manges = require('./repo/existing')
+const MANGROVEEXISTING = require('./repo/existing')
 app.use(express.json())
+app.use(MANGROVEEXISTING.HITUNGLUAS())
 app.use(express.urlencoded({ extended: true }))
 
 // #############################################################################
