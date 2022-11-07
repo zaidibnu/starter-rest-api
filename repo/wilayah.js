@@ -5,4 +5,7 @@ function get(id){
 function download(id){
     return './existing/'+id+'.json'
 }
-module.exports = {get, download}
+function tryMe(e){
+    return e;
+}
+module.exports = {get, download,tryMe}
