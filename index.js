@@ -2,7 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const db = require('cyclic-dynamodb')
-const APIMANGROVE = require('./repo/api')
+const APIMANG = require('./repo/api')
+const APIWILAYAH = require('./repo/wilayah')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }))
 // app.use(express.static('public', options))
 // #############################################################################
 
+
 // Create or Update an item
 app.use(cors())
 app.post('/:col/:key', async (req, res) => {
@@ -32,7 +34,15 @@ app.post('/:col/:key', async (req, res) => {
   console.log(JSON.stringify(item, null, 2))
   res.json(item).end()
 })
-
+//
+app.get('/status/',cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}),async (req,res)=>{
+  res.json(APIMANGROVE())
+})
 // Delete an item
 app.delete('/:col/:key', async (req, res) => {
   const col = req.params.col
@@ -51,24 +61,37 @@ app.get('/:col/:key', async (req, res) => {
   //const item = await db.collection(col).get(key)
   //console.log(JSON.stringify(item, null, 2))
   //res.json(item).end()
+  const result = {
+    request: col,
+    key: key,
+    data: null
+  }
   switch(col){
+    case 'calculate':
+      result.data = APIMANG.HITUNGLUAS(col)
+      res.json(result)
+    break;
+    case 'wilayah':
+      result.data = APIWILAYAH.get(key)
+      res.download(result)
+    break;
     case 'existing':
-      const manges = require('./repo/exsiting')
-      res.json(mangroveExisting('upt'))
+     // result.data = APIWILAYAH.download(key)
+      res.download(APIWILAYAH.download(key))
     break;
   }
 })
 
 // Get a full listing
 app.get('/:col', async (req, res) => {
-  //const col = req.params.col
+  const col = req.params.col
   //console.log(`list collection: ${col} with params: ${JSON.stringify(req.params)}`)
   //const items = await db.collection(col).list()
   //console.log(JSON.stringify(items, null, 2))
   //res.json(items).end()
   switch(col){
     case 'existing':
-      const manges = require('./repo/exsiting')
+      const manges = require('./repo/existing')
       res.json({status:200, data:null}).end()
     break;
   }
@@ -83,7 +106,7 @@ app.use('*',cors({
   "optionsSuccessStatus": 200
 }), (req, res) => {
   console.log(req)
-  res.json(APIMANGROVE())
+  res.json(APIMANG.APIMANGROVE())
 })
 
 // Start the server
