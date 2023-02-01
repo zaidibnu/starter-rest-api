@@ -22,8 +22,7 @@ app.all('/', (req, res) => {
     console.log("Just got a request!")
     res.json(req)
 })
-app.listen(process.env.PORT || 3000)
-// Start the server
+//
 const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`index.js listening on ${port}`)
