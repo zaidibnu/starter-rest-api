@@ -32,24 +32,6 @@ app.post('/:col/:key', async (req, res) => {
   res.json(item).end()
 })
 //
-app.get('/status/',cors({
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
-}),async (req,res)=>{
-  res.json(APIMANGROVE())
-})
-// Delete an item
-app.delete('/:col/:key', async (req, res) => {
-  const col = req.params.col
-  const key = req.params.key
-  console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
-  const item = await db.collection(col).delete(key)
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
-})
-
 // Get a single item
 app.get('/:col/:key', async (req, res) => {
   const col = req.params.col
@@ -72,17 +54,13 @@ app.get('/:col/:key', async (req, res) => {
 })
 
 // Get a full listing
-app.get('/:col', async (req, res) => {
+app.get('/firebase/', async (req, res) => {
   const col = req.params.col
   //console.log(`list collection: ${col} with params: ${JSON.stringify(req.params)}`)
   //const items = await db.collection(col).list()
   //console.log(JSON.stringify(items, null, 2))
   //res.json(items).end()
-  switch(col){
-    case 'existing':
-      res.json({status:200, data:null}).end()
-    break;
-  }
+  res.json({status:200, data:req}).end()
 })
 //
 
