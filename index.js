@@ -2,8 +2,6 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const db = require('cyclic-dynamodb')
-const APIMANG = require('./repo/api')
-const APIWILAYAH = require('./repo/wilayah')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -67,16 +65,8 @@ app.get('/:col/:key', async (req, res) => {
   }
   switch(col){
     case 'calculate':
-      result.data = APIMANG.HITUNGLUAS(col)
+      result.data = '1234'
       res.json(result)
-    break;
-    case 'wilayah':
-      result.data = APIWILAYAH.get(key)
-      res.download(result)
-    break;
-    case 'existing':
-     // result.data = APIWILAYAH.download(key)
-      res.download(APIWILAYAH.download(key))
     break;
   }
 })
@@ -90,7 +80,6 @@ app.get('/:col', async (req, res) => {
   //res.json(items).end()
   switch(col){
     case 'existing':
-      const manges = require('./repo/existing')
       res.json({status:200, data:null}).end()
     break;
   }
