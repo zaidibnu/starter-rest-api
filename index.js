@@ -18,63 +18,11 @@ app.use(express.urlencoded({ extended: true }))
 // }
 // app.use(express.static('public', options))
 // #############################################################################
-
-
-// Create or Update an item
-app.use(cors())
-app.post('/:col/:key', async (req, res) => {
-  console.log(req.body)
-  const col = req.params.col
-  const key = req.params.key
-  console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
-  const item = await db.collection(col).set(key, req.body)
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
+app.all('/', (req, res) => {
+    console.log("Just got a request!")
+    res.json(req)
 })
-//
-// Get a single item
-app.get('/:col/:key', async (req, res) => {
-  const col = req.params.col
-  const key = req.params.key
-  //console.log(`from collection: ${col} get key: ${key} with params ${JSON.stringify(req.params)}`)
-  //const item = await db.collection(col).get(key)
-  //console.log(JSON.stringify(item, null, 2))
-  //res.json(item).end()
-  const result = {
-    request: col,
-    key: key,
-    data: null
-  }
-  switch(col){
-    case 'calculate':
-      result.data = '1234'
-      res.json(result)
-    break;
-  }
-})
-
-// Get a full listing
-app.get('/firebase/', async (req, res) => {
-  const col = req.params.col
-  //console.log(`list collection: ${col} with params: ${JSON.stringify(req.params)}`)
-  //const items = await db.collection(col).list()
-  //console.log(JSON.stringify(items, null, 2))
-  //res.json(items).end()
-  res.json({status:200, data:req}).end()
-})
-//
-
-// Catch all handler for all other request.
-app.use('*',cors({
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 200
-}), (req, res) => {
-  console.log(req)
-  res.json(APIMANG.APIMANGROVE())
-})
-
+app.listen(process.env.PORT || 3000)
 // Start the server
 const port = process.env.PORT || 3000
 app.listen(port, () => {
