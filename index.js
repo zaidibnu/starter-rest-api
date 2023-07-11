@@ -1,12 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dynamodb = require('./dynamodb');
-
 const app = express();
 const port = 3000;
-
+const CyclicDb = require("@cyclic.sh/dynamodb")
+const dynamodb = CyclicDb("ill-gray-squirrel-gearCyclicDB")
 app.use(bodyParser.json());
-
 app.get('/api/users', (req, res) => {
   const params = {
     TableName: 'Users' // Ganti dengan nama tabel DynamoDB Anda
