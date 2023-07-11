@@ -8,7 +8,7 @@
     "repl": "env-cmd node"
   },
   "keywords": [],
-  "author": "Kam Lasater <kam.lasater@cyclic.sh>",
+  "author": "Zaid Ibnu Awwal",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.16"
