@@ -1,29 +1,53 @@
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const db = require('cyclic-dynamodb')
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+const express = require('express');
+const bodyParser = require('body-parser');
+const dynamodb = require('./dynamodb');
 
-// #############################################################################
-// This configures static hosting for files in /public that have the extensions
-// listed in the array.
-// var options = {
-//   dotfiles: 'ignore',
-//   etag: false,
-//   extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg'],
-//   index: ['index.html'],
-//   maxAge: '1m',
-//   redirect: false
-// }
-// app.use(express.static('public', options))
-// #############################################################################
-app.all('/', (req, res) => {
-    console.log("Just got a request!")
-    res.json(req)
-})
-//
-const port = process.env.PORT || 3000
+const app = express();
+const port = 3000;
+
+app.use(bodyParser.json());
+
+app.get('/api/users', (req, res) => {
+  const params = {
+    TableName: 'Users' // Ganti dengan nama tabel DynamoDB Anda
+  };
+
+  dynamodb.scan(params, (error, data) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.json(data.Items);
+    }
+  });
+});
+
+app.post('/api/users', (req, res) => {
+  const { id, name } = req.body;
+
+  if (!id || !name) {
+    res.status(400).send('Bad Request');
+    return;
+  }
+
+  const params = {
+    TableName: 'Users', // Ganti dengan nama tabel DynamoDB Anda
+    Item: {
+      id: { S: id },
+      name: { S: name }
+    }
+  };
+
+  dynamodb.putItem(params, (error) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(201).send('User created successfully');
+    }
+  });
+});
+
 app.listen(port, () => {
-  console.log(`index.js listening on ${port}`)
-})
+  console.log(`Server running on port ${port}`);
+});
